@@ -69,12 +69,6 @@ extension SearchTrainViewController: PresenterToViewProtocol {
         showAlert(title: "No Trains", message: "Sorry No trains Found from source to destination in another 90 mins", actionTitle: "Okay")
     }
 
-    func showAlert(title:String,message:String,actionTitle:String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: actionTitle, style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-
     func showInvalidSourceOrDestinationAlert() {
         trainsListTable.isHidden = true
         hideProgressIndicator(view: self.view)
@@ -83,7 +77,7 @@ extension SearchTrainViewController: PresenterToViewProtocol {
 
     func saveFetchedStations(stations: [Station]?) {
         if let _stations = stations {
-          self.stationsList = _stations
+            self.stationsList = _stations
         }
         SwiftSpinner.hide()
     }
