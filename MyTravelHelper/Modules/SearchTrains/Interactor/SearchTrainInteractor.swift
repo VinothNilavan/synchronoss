@@ -8,7 +8,6 @@
 
 import Foundation
 import XMLParsing
-import Alamofire
 
 class SearchTrainInteractor: PresenterToInteractorProtocol {
     var _sourceStationCode = String()
@@ -36,10 +35,10 @@ class SearchTrainInteractor: PresenterToInteractorProtocol {
         NetworkManager.getStationByCode(code: sourceCode) { result in
             switch result {
             case .success(let st):
-                if st.trainsList.isEmpty {
-                    self.presenter!.showNoTrainAvailbilityFromSource()
+                if let trains =  st.trainsList {
+                    self.proceesTrainListforDestinationCheck(trainsList: trains)
                 } else {
-                    self.proceesTrainListforDestinationCheck(trainsList: st.trainsList)
+                    self.presenter!.showNoTrainAvailbilityFromSource()
                 }
             case .failure(let err):
                 self.presenter!.showMessage(err.localizedDescription)
@@ -70,7 +69,6 @@ class SearchTrainInteractor: PresenterToInteractorProtocol {
         var _trainsList = trainsList
         let today = CurrentDate
         let group = DispatchGroup()
-        
         for (index, value) in trainsList.enumerated() {
             group.enter()
             NetworkManager.getMovementTrain(trainId: value.trainCode, date: today) { result in

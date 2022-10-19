@@ -9,7 +9,7 @@
 import Foundation
 
 struct StationData: Codable {
-    var trainsList: [StationTrain]
+    var trainsList: [StationTrain]?
 
     enum CodingKeys: String, CodingKey {
         case trainsList = "objStationData"
