@@ -8,7 +8,11 @@
 
 import UIKit
 
-class SearchTrainPresenter:ViewToPresenterProtocol {
+class SearchTrainPresenter: ViewToPresenterProtocol {
+    func showMessage(_ msg: String) {
+        view?.showMessage(msg)
+    }
+    
     var stationsList: [Station] = [Station]()
 
     func searchTapped(source: String, destination: String) {

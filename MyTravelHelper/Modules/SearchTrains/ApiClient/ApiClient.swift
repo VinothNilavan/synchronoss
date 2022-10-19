@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import XMLParsing
 
 public let DefaultStatusCode = 0
 
@@ -81,7 +82,8 @@ extension URLSession {
         
         if let data = data {
             do {
-              let object = try JSONDecoder().decode(T.self, from: data)
+//              let object = try JSONDecoder().decode(T.self, from: data)
+                let object = try XMLDecoder().decode(T.self, from: data)
                 completion(.success(object))
             } catch let decoderError {
                 completion(.failure(decoderError))

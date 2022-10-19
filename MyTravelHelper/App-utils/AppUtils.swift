@@ -25,3 +25,9 @@ func hideProgressIndicator(view:UIView){
         viewWithTag.removeFromSuperview()
     }
 }
+
+var CurrentDate: String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "dd/MM/yyyy"
+    return formatter.string(from: Date())
+}

@@ -28,6 +28,19 @@ extension BaseRouter {
     public var keypathToMap: String? {  nil }
 }
 
-enum ProductIdRouter: BaseRouter {
-    case productList(_ type: String)
+enum StationRouter: BaseRouter {
+    case getAllStations(_ type: String)
+    case getStationByCode(_ code: String)
+    case getTrainMovements(_ trainId: String, trainDate: String)
+    
+    var path: String {
+        switch self {
+        case .getAllStations:
+            return "getAllStationsXML"
+        case .getStationByCode(let code):
+            return "getStationDataByCodeXML?StationCode=" + code
+        case .getTrainMovements(let trainId, let trainDate):
+            return "getTrainMovementsXML?TrainId=\(trainId)&TrainDate=\(trainDate)"
+        }
+    }
 }
