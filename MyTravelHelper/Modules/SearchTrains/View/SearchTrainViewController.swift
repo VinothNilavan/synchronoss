@@ -11,6 +11,7 @@ import SwiftSpinner
 import DropDown
 
 class SearchTrainViewController: UIViewController {
+    
     @IBOutlet weak var destinationTextField: UITextField!
     @IBOutlet weak var sourceTxtField: UITextField!
     @IBOutlet weak var trainsListTable: UITableView!
@@ -127,10 +128,8 @@ extension SearchTrainViewController:UITextFieldDelegate {
     }
 }
 
-extension SearchTrainViewController:UITableViewDataSource,UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return trains.count
-    }
+extension SearchTrainViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { trains.count }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "train", for: indexPath) as! TrainInfoCell
@@ -142,10 +141,17 @@ extension SearchTrainViewController:UITableViewDataSource,UITableViewDelegate {
             cell.destinationInfoLabel.text = _destinationDetails.locationFullName
             cell.destinationTimeLabel.text = _destinationDetails.expDeparture
         }
+        cell.delegate = self
+        cell.train = train
         return cell
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 140
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { 140 }
+}
+extension SearchTrainViewController: CellDelegate {
+    func makeFavourite(_ train: StationTrain?) {
+        if let index = trains.firstIndex(where: {$0.trainCode == train?.trainCode}) {
+            
+        }
     }
 }
