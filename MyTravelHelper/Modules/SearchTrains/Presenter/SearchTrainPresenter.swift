@@ -9,11 +9,11 @@
 import UIKit
 
 class SearchTrainPresenter: ViewToPresenterProtocol {
-    func showMessage(_ msg: String) {
-        view?.showMessage(msg)
-    }
     
     var stationsList: [Station] = [Station]()
+    var interactor: PresenterToInteractorProtocol?
+    var router: PresenterToRouterProtocol?
+    var view: PresenterToViewProtocol?
 
     func searchTapped(source: String, destination: String) {
         let sourceStationCode = getStationCode(stationName: source)
@@ -21,9 +21,9 @@ class SearchTrainPresenter: ViewToPresenterProtocol {
         interactor?.fetchTrainsFromSource(sourceCode: sourceStationCode, destinationCode: destinationStationCode)
     }
     
-    var interactor: PresenterToInteractorProtocol?
-    var router: PresenterToRouterProtocol?
-    var view: PresenterToViewProtocol?
+    func showMessage(_ msg: String) {
+        view?.showMessage(msg)
+    }
 
     func fetchallStations() {
         interactor?.fetchallStations()

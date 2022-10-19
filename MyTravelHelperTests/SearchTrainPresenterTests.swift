@@ -15,7 +15,7 @@ class SearchTrainPresenterTests: XCTestCase {
     var interactor = SearchTrainInteractorMock()
     
     override func setUp() {
-      presenter = SearchTrainPresenter()
+        presenter = SearchTrainPresenter()
         presenter.view = view
         presenter.interactor = interactor
         interactor.presenter = presenter
@@ -34,6 +34,8 @@ class SearchTrainPresenterTests: XCTestCase {
 
 
 class SearchTrainMockView:PresenterToViewProtocol {
+    func showMessage(_ msg: String) { }
+    
     var isSaveFetchedStatinsCalled = false
 
     func saveFetchedStations(stations: [Station]?) {
@@ -69,7 +71,6 @@ class SearchTrainInteractorMock:PresenterToInteractorProtocol {
         presenter?.stationListFetched(list: [station])
     }
 
-    func fetchTrainsFromSource(sourceCode: String, destinationCode: String) {
-
-    }
+    func fetchTrainsFromSource(sourceCode: String, destinationCode: String) { }
+    
 }
