@@ -25,8 +25,9 @@ struct StationTrain: Codable {
     var lateBy:Int
     var expArrival:String
     var expDeparture:String
-    var destinationDetails:TrainMovement?
-
+    var destinationDetails: TrainMovement?
+    var favorite: Bool?
+    
     enum CodingKeys: String, CodingKey {
         case trainCode = "Traincode"
         case stationFullName = "Stationfullname"

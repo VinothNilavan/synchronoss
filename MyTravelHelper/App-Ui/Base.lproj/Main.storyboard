@@ -179,6 +179,7 @@
                                         <connections>
                                             <outlet property="destinationInfoLabel" destination="BCa-jD-jy0" id="TIp-XW-OxW"/>
                                             <outlet property="destinationTimeLabel" destination="jb9-tb-gO2" id="cyj-wE-t0c"/>
+                                            <outlet property="heartButton" destination="YSV-st-bJf" id="gN3-tA-aed"/>
                                             <outlet property="souceInfoLabel" destination="UBA-gH-Bcr" id="W4v-xS-9Cu"/>
                                             <outlet property="sourceTimeLabel" destination="hjt-Ml-BGq" id="eHB-cz-KvV"/>
                                             <outlet property="trainCode" destination="YbZ-Bg-X3V" id="qnI-xg-uCb"/>

@@ -62,7 +62,16 @@ extension SearchTrainViewController: PresenterToViewProtocol {
 
     func updateLatestTrainList(trainsList: [StationTrain]) {
         hideProgressIndicator(view: self.view)
-        trains = trainsList
+        var _trains = [StationTrain]()
+        let savedObjc = DB.shared.getObject()
+
+        for var train in trainsList {
+            if savedObjc.filter({$0.trainCode == train.trainCode}).first != nil {
+                train.favorite = true
+            }
+            _trains.append(train)
+        }
+        trains = _trains
         trainsListTable.isHidden = false
         trainsListTable.reloadData()
     }
@@ -134,13 +143,6 @@ extension SearchTrainViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "train", for: indexPath) as! TrainInfoCell
         let train = trains[indexPath.row]
-        cell.trainCode.text = train.trainCode
-        cell.souceInfoLabel.text = train.stationFullName
-        cell.sourceTimeLabel.text = train.expDeparture
-        if let _destinationDetails = train.destinationDetails {
-            cell.destinationInfoLabel.text = _destinationDetails.locationFullName
-            cell.destinationTimeLabel.text = _destinationDetails.expDeparture
-        }
         cell.delegate = self
         cell.train = train
         return cell
@@ -151,7 +153,11 @@ extension SearchTrainViewController: UITableViewDataSource, UITableViewDelegate 
 extension SearchTrainViewController: CellDelegate {
     func makeFavourite(_ train: StationTrain?) {
         if let index = trains.firstIndex(where: {$0.trainCode == train?.trainCode}) {
-            
+            var train = trains[index]
+            train.favorite?.toggle()
+            trains[index] = train
+           _ = DB.shared.updateObject(train)
+            trainsListTable.reloadData()
         }
     }
 }
